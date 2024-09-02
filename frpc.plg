@@ -3,12 +3,11 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name        "frpc">
   <!ENTITY author      "guiyunweb">
-  <!ENTITY version     "2022.12.22e">
+  <!ENTITY version     "2024.09.02.1">
   <!ENTITY minosver    "6.10.0">
   <!ENTITY launch      "Settings/Frpc">
   <!ENTITY branch      "main">
-  <!ENTITY githubURL   "https://raw.githubusercontent.com/guiyun/unraid-frpc/&branch;">
-  <!ENTITY giteeURL    "https://gitee.com/ludoux/unraid-frpc/raw/&branch;">
+  <!ENTITY githubURL   "https://rawgithub.guiyun.plus/guiyun/unraid-frpc/&branch;">
   <!ENTITY gitCHANNEL  "GitHub">
   <!ENTITY gitURL      "&githubURL;">
   <!ENTITY pluginURL   "&gitURL;/&name;.plg">

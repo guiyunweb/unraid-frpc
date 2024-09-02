@@ -32,13 +32,14 @@
     <!-- 安装前 -->
     <FILE Run="/bin/bash">
         <INLINE>
+            echo "====安装前======"
+            echo &gitURL;/archives/&plgNAME;.txz
         </INLINE>
     </FILE>
     
     <!-- 下载并安装插件包 -->
     <FILE Name="&plgPATH;/&plgNAME;.txz" Run="upgradepkg --install-new --reinstall">>
         <URL>&gitURL;/archives/&plgNAME;.txz</URL>
-        <MD5>&MD5;</MD5>
     </FILE>
 
     <!-- 安装后 -->

@@ -1,0 +1,85 @@
+<?xml version='1.0' standalone='yes'?>
+
+<!DOCTYPE PLUGIN [
+  <!ENTITY name        "frpc">
+  <!ENTITY author      "guiyunweb">
+  <!ENTITY version     "2022.12.22e">
+  <!ENTITY minosver    "6.10.0">
+  <!ENTITY launch      "Settings/Frpc">
+  <!ENTITY branch      "main">
+  <!ENTITY githubURL   "https://raw.githubusercontent.com/guiyun/unraid-frpc/&branch;">
+  <!ENTITY giteeURL    "https://gitee.com/ludoux/unraid-frpc/raw/&branch;">
+  <!ENTITY gitCHANNEL  "GitHub">
+  <!ENTITY gitURL      "&githubURL;">
+  <!ENTITY pluginURL   "&gitURL;/&name;.plg">
+  <!ENTITY plgPATH     "/boot/config/plugins/&name;">
+  <!ENTITY plgNAME     "&name;-&version;">
+]>
+
+<PLUGIN  name="&name;"
+         author="&author;"
+         version="&version;"
+         pluginURL="&pluginURL;"
+         launch="&launch;"
+         icon="paper-plane"
+         min="&minosver;">
+
+    <CHANGES>
+    ###2024.09.02 - Initial Release
+    打包第一版
+
+    </CHANGES>
+
+    <!-- 安装前 -->
+    <FILE Run="/bin/bash">
+        <INLINE>
+        </INLINE>
+    </FILE>
+    
+    <!-- 下载并安装插件包 -->
+    <FILE Name="&plgPATH;/&plgNAME;.txz" Run="upgradepkg --install-new --reinstall">>
+        <URL>&gitURL;/archives/&plgNAME;.txz</URL>
+        <MD5>&MD5;</MD5>
+    </FILE>
+
+    <!-- 安装后 -->
+    <FILE Run="/bin/bash">
+        <INLINE>
+            echo ""
+            echo "-----------------------------------------------------------"
+            echo " &name; v&version; 渠道: &gitCHANNEL; 安装成功。在 设置-用户实用程序 下即可访问此插件"
+            echo " 请注意，未来插件卸载时会将本插件和系统代理配置信息清理掉，即卸载后便恢复直连。"
+            echo " 插件主页面的【帮助/反馈/关于/捐赠】内有论坛链接，建议初次上手用户前去阅读"
+            echo " 有问题也可以跟贴留言。假如插件帮助到你也欢迎扫码捐赠 ^_^"
+            echo " Copyright 2022, ludoux"
+            echo "-----------------------------------------------------------"
+            echo ""
+        </INLINE>
+    </FILE>
+
+    <!-- 卸载脚本 -->
+    <FILE Run="/bin/bash" Method="remove">
+        <INLINE>
+            
+            removepkg &plgPATH;/&plgNAME;.txz
+            rm -rf &plgPATH;
+            # 正常情况下下面这一个目录，上面的 removepkg 就给清理掉了
+            rm -rf /usr/local/emhttp/plugins/&name;
+
+            rm -f /boot/config/plugins/community.applications/frpc.cfg
+            # restore /boot/config/go
+            sed -i "/\/usr\/local\/sbin\/emhttp &amp;/c\/usr\/local\/sbin\/emhttp &amp;" /boot/config/go
+            sed -i "/# Added by Frpc/d" /boot/config/go
+            echo ""
+            echo "-----------------------------------------------------------"
+            echo " &name; v&version; 渠道: &gitCHANNEL; 已经卸载成功."
+            echo " CA 代理配置文件 proxy.cfg 已删除"
+            echo " 系统级代理配置文件 /boot/config/go 已复原"
+            echo "-----------------------------------------------------------"
+            echo ""
+
+            exit 0
+        </INLINE>
+    </FILE>
+
+</PLUGIN>

@@ -1,0 +1,6 @@
+Menu="Utilities"
+Title="Frpc"
+Icon="paper-plane"
+Tag="paper-plane"
+<?php
+phpinfo();

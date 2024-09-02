@@ -7,7 +7,7 @@
   <!ENTITY minosver    "6.10.0">
   <!ENTITY launch      "Settings/Frpc">
   <!ENTITY branch      "main">
-  <!ENTITY githubURL   "https://rawgithub.guiyun.plus/guiyun/unraid-frpc/&branch;">
+  <!ENTITY githubURL   "https://rawgithub.guiyun.plus/guiyunweb/unraid-frpc/&branch;">
   <!ENTITY gitCHANNEL  "GitHub">
   <!ENTITY gitURL      "&githubURL;">
   <!ENTITY pluginURL   "&gitURL;/&name;.plg">
@@ -34,6 +34,7 @@
         <INLINE>
             echo "====安装前======"
             echo &gitURL;/archives/&plgNAME;.txz
+             echo "==============="
         </INLINE>
     </FILE>
     
